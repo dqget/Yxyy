@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.itcast.shop.evaluate.vo.Evaluate" table="evaluates">
+		<id name="eid">
+			<generator class="native"/>
+		</id>
+		<property name="econ"/>
+		<property name="eva"/>
+		<property name="edate"/>
+		
+		<many-to-one name="product" lazy="false" cascade="delete" class="cn.itcast.shop.product.vo.Product" column="pid"/>
+		
+		<many-to-one name="user" lazy="false" cascade="delete" class="cn.itcast.shop.user.vo.User" column="uid"/>
+	</class>
+</hibernate-mapping>

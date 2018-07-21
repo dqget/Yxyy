@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.itcast.shop.product.vo.Product" table="product">
+		<id name="pid">
+			<generator class="native"/>
+		</id>
+		<property name="pname"/>
+		<property name="market_price"/>
+		<property name="shop_price"/>
+		<property name="image"/>
+		<property name="pdesc"/>
+		<property name="is_hot"/>
+		<property name="pdate"/>
+		<property name="pnum"/>
+		<property name="psales"/>
+		<set order-by="eid" cascade="delete" name="evaluates" lazy="false">
+			<key column="pid"/>
+			<one-to-many class="cn.itcast.shop.evaluate.vo.Evaluate"/>
+		</set>
+		<set order-by="itemid" cascade="delete" name="orderItems" lazy="false">
+			<key column="pid"/>
+			<one-to-many class="cn.itcast.shop.order.vo.OrderItem"/>
+		</set>
+		<!-- name:本类中的多对一一的变量名字   class：多对一一的全路径    colum：本类所对应的表的此联系的外键 -->
+		<many-to-one name="categorySecond" lazy="false" class="cn.itcast.shop.categorysecond.vo.CategorySecond" column="csid"></many-to-one>
+	</class>
+</hibernate-mapping>

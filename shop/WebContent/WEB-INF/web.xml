@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name></display-name>	
+  
+  <!-- struts2的核心控制器 - 过滤器 -->
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  	<dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  
+  <!-- spring监听器 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- openSessionViewFilter  -->
+
+	<filter>
+	    <filter-name>openSessionInViewFilter</filter-name>
+	    <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    <!-- 配置参数防止hibernate将事务设置为只读  -->
+	<init-param>
+    	<param-name>flushMode</param-name> 
+		<param-value>AUTO</param-value> 
+	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>openSessionInViewFilter</filter-name>
+  	<url-pattern>*.do,*.action</url-pattern>
+  </filter-mapping> 
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>

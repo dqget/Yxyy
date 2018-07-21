@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.itcast.shop.categorysecond.vo.CategorySecond" table="categorysecond">
+		<id name="csid">
+			<generator class="native"/>
+		</id>
+		<property name="csname"/>
+		<!-- name:本类中的多对一一的变量名字   class：多对一一的全路径    colum：本类所对应的表的此联系的外键 -->
+		<many-to-one name="category" lazy="false" class="cn.itcast.shop.category.vo.Category" column="cid"></many-to-one>
+		<!-- name:本类中的一对多多的变量名字    
+		colum：本类所对应的表的主键 order-by：将本类的一对多的集合属性按照集合中对象的pid排序   lazy
+		class：一对多躲的全路径   -->
+		<set order-by="pid" cascade="delete" name="products" lazy="false">
+			<key column="csid"/>
+			<one-to-many class="cn.itcast.shop.product.vo.Product"/>
+		</set>
+	</class>
+</hibernate-mapping>
